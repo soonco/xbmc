@@ -8,7 +8,7 @@ VERSION_TAG
 VERSION_CODE 20.0.0
 ADDON_API 20.0.0
 ADDON_REPOS repository.xbmc.org|https://mirrors.kodi.tv
-APP_PACKAGE org.xbmc.kodi
+APP_PACKAGE org.xbmc.kodi.t968.official20
 PACKAGE_IDENTITY XBMCFoundation.Kodi
 PACKAGE_PUBLISHER C62BD90A-CDD8-477F-96C3-B25992247B97
 PACKAGE_DESCRIPTION Kodi is an open source (GPL) software media center for playing videos, music, pictures, games, and more.

@@ -13,7 +13,7 @@ else
     CXXFLAGS += -std=c++17
     PLATFORM = native
     TARBALLS_LOCATION = $(ROOT_DIR)
-    BASE_URL := http://mirrors.kodi.tv/build-deps/sources
+    BASE_URL := http://mirrors.ustc.edu.cn/xbmc/build-deps/sources
     RETRIEVE_TOOL := curl -Ls --create-dirs -f -O
     ARCHIVE_TOOL := tar --strip-components=1 -xf
     CMAKE := cmake
