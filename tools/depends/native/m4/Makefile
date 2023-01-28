@@ -1,7 +1,7 @@
 include ../../Makefile.include
 PREFIX=$(NATIVEPREFIX)
 PLATFORM=$(NATIVEPLATFORM)
-DEPS= ../../Makefile.include Makefile 01-fix-ftbfs-with-glibc-2.28.patch osx_snprintf.patch
+DEPS= ../../Makefile.include Makefile 01-fix-ftbfs-with-glibc-2.28.patch osx_snprintf.patch 0003-c-stack-stop-using-SIGSTKSZ.patch
 
 # lib name, version
 LIBNAME=m4
@@ -24,6 +24,7 @@ $(PLATFORM): $(TARBALLS_LOCATION)/$(ARCHIVE) $(DEPS)
 	cd $(PLATFORM); $(ARCHIVE_TOOL) $(ARCHIVE_TOOL_FLAGS) $(TARBALLS_LOCATION)/$(ARCHIVE)
 	cd $(PLATFORM); patch -p1 -i ../01-fix-ftbfs-with-glibc-2.28.patch
 	cd $(PLATFORM); patch -p1 -i ../osx_snprintf.patch
+	cd $(PLATFORM); patch -p1 -i ../0003-c-stack-stop-using-SIGSTKSZ.patch
 	cd $(PLATFORM); $(CONFIGURE)
 
 $(LIBDYLIB): $(PLATFORM)

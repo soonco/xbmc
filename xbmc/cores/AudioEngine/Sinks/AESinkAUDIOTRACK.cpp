@@ -991,11 +991,29 @@ void CAESinkAUDIOTRACK::EnumerateDevicesEx(AEDeviceInfoList &list, bool force)
 }
 
 void CAESinkAUDIOTRACK::UpdateAvailablePassthroughCapabilities(bool isRaw)
-{
+{A
   m_info.m_deviceType = AE_DEVTYPE_HDMI;
   m_info.m_wantsIECPassthrough = false;
   m_info.m_dataFormats.push_back(AE_FMT_RAW);
   m_info.m_streamTypes.clear();
+
+  // if hardware is amlogic but aml_present is false, means permissions are wrong in FW, we run on broken v23 firmware which should not have
+  // been sold to customers. Just add AC3 and return early
+  int aml_present = open("/sys/class/audiodsp/digital_raw", O_RDONLY);
+  if (aml_present >= 0)
+  {
+    close(aml_present);
+  }
+  else 
+  {
+    if( (StringUtils::StartsWithNoCase(CJNIBuild::HARDWARE, "amlogic") && CJNIAudioManager::GetSDKVersion() == 23))
+    {
+      m_info.m_streamTypes.push_back(CAEStreamInfo::STREAM_TYPE_AC3);
+      CLog::Log(LOGINFO, "AMLogic v23 broken FW workaround in place - only AC3 supported");
+      return;
+    }
+  }
+
   if (isRaw)
   {
     if (CJNIAudioFormat::ENCODING_AC3 != -1)
